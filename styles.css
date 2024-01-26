@@ -23,6 +23,10 @@ body{
     flex: 1;
     margin: 5px 5px;
     border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
 }
 
 #rowOneButton{
@@ -70,4 +74,14 @@ body{
 
 button{
     background-color: rgb(143, 142, 80);
+    font-weight: 800;
+}
+
+#computed{
+    font-size: 50px;
+    
+}
+
+#liveInputs{
+    font-size: 50px;
 }
