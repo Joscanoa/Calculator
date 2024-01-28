@@ -1,8 +1,8 @@
 let inputArray= [];
 let firtstNum;
 let operationBoolean = false;
+let decimalBoolean = false;
 
-let x = "ssssss";
 
 //display text
 const liveInput = document.querySelector('#liveInputs');
@@ -29,6 +29,7 @@ const multButton = document.querySelector('#multiply');
 const divButton = document.querySelector('#divide')
 //misc buttons
 const enterButton = document.querySelector('#enter');
+const decimalButton = document.querySelector('#decimal');
 
 zeroButton.addEventListener("click", () =>{
     if(inputArray.length >0){
@@ -77,20 +78,30 @@ nineButton.addEventListener("click", ()=>{
 
 clearButton.addEventListener("click", ()=> {
     clear();
+    decimalBoolean = false;
 });
 
 deleteButton.addEventListener("click", () => {
     inputArray.length = inputArray.length -1;
     liveInput.textContent = inputArray.join('');
+    if(!liveInput.textContent.includes('.')){
+        decimalBoolean = false;
+    }
 })
 
 eraseButton.addEventListener("click", ()=> {
     inputArray.shift();
     liveInput.textContent = inputArray.join('')
+    if(!liveInput.textContent.includes('.')){
+        decimalBoolean = false;
+    } 
 });
 
-plusButton.addEventListener("click", () => {
 
+plusButton.addEventListener("click", () => {
+    
+        decimalBoolean = false;
+    
         if ((inputArray.length > 0 && !operationBoolean)){
             computedOutput.textContent = liveInput.textContent + '+'; 
             firtstNum = liveInput.textContent;
@@ -104,7 +115,7 @@ plusButton.addEventListener("click", () => {
             firtstNum = computedOutput.textContent;
             computedOutput.textContent = computedOutput.textContent + "+"; 
         }
-        else if(!(computedOutput === '')){
+        else if(!(computedOutput === '') && inputArray.length>0){
             firtstNum = computedOutput.textContent
             if(!computedOutput.textContent.includes('+')){
                 computedOutput.textContent = computedOutput.textContent + '+';
@@ -116,7 +127,7 @@ plusButton.addEventListener("click", () => {
 });
 
 minusButton.addEventListener("click", () => {
-
+    decimalBoolean = false;
         if ((inputArray.length > 0 && !operationBoolean)){
             computedOutput.textContent = liveInput.textContent + '-'; 
             firtstNum = liveInput.textContent;
@@ -130,7 +141,7 @@ minusButton.addEventListener("click", () => {
             firtstNum = computedOutput.textContent;
             computedOutput.textContent = computedOutput.textContent + "-"; 
         }
-        else if(!(computedOutput === '')){
+        else if(!(computedOutput === '') && inputArray.length>0){
             firtstNum = computedOutput.textContent
             if(!computedOutput.textContent.includes('-')){
                 computedOutput.textContent = computedOutput.textContent + '-';
@@ -141,7 +152,7 @@ minusButton.addEventListener("click", () => {
     
     });
 multButton.addEventListener("click", () => {
-
+    decimalBoolean = false;
         if ((inputArray.length > 0 && !operationBoolean)){
             computedOutput.textContent = liveInput.textContent + '*'; 
             firtstNum = liveInput.textContent;
@@ -155,7 +166,7 @@ multButton.addEventListener("click", () => {
             firtstNum = computedOutput.textContent;
             computedOutput.textContent = computedOutput.textContent + "*"; 
         }
-        else if(!(computedOutput === '')){
+        else if(!(computedOutput === '') && inputArray.length>0){
             firtstNum = computedOutput.textContent
             if(!computedOutput.textContent.includes('*')){
                 computedOutput.textContent = computedOutput.textContent + '*';
@@ -167,7 +178,7 @@ multButton.addEventListener("click", () => {
 });
 
 divButton.addEventListener("click", () => {
-   
+    decimalBoolean = false;
         if ((inputArray.length > 0 && !operationBoolean)){
             computedOutput.textContent = liveInput.textContent + '/'; 
             firtstNum = liveInput.textContent;
@@ -181,7 +192,7 @@ divButton.addEventListener("click", () => {
             firtstNum = computedOutput.textContent;
             computedOutput.textContent = computedOutput.textContent + "-"; 
         }
-        else if(!(computedOutput === '')){
+        else if(!(computedOutput === '') && inputArray.length>0){
             firtstNum = computedOutput.textContent
             if(!computedOutput.textContent.includes('/')){
                 computedOutput.textContent = computedOutput.textContent + '/';
@@ -192,8 +203,17 @@ divButton.addEventListener("click", () => {
     
 });
 
+decimalButton.addEventListener("click", () => {
+    if (!(decimalBoolean)){
+        inputArray.push('.');
+        liveInput.textContent = inputArray.join('');
+        decimalBoolean = true;
+    }
+})
+
 enterButton.addEventListener("click", ()=>{
     calc();
+    decimalBoolean = false;
 });
 
 function clear(){

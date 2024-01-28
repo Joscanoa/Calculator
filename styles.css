@@ -79,9 +79,14 @@ button{
 
 #computed{
     font-size: 50px;
-    
+    width: 390px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 #liveInputs{
     font-size: 50px;
+    width: 390px;
+    display: flex;
+    flex-wrap: wrap;
 }
