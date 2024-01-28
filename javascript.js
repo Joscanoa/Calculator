@@ -24,6 +24,9 @@ const deleteButton = document.querySelector('#delete');
 const eraseButton = document.querySelector('#erase');
 //operation buttons
 const plusButton = document.querySelector('#plus');
+const minusButton = document.querySelector('#minus');
+const multButton = document.querySelector('#multiply');
+const divButton = document.querySelector('#divide')
 //misc buttons
 const enterButton = document.querySelector('#enter');
 
@@ -73,8 +76,7 @@ nineButton.addEventListener("click", ()=>{
 });
 
 clearButton.addEventListener("click", ()=> {
-    inputArray.length = 0;
-    liveInput.textContent = '0';
+    clear();
 });
 
 deleteButton.addEventListener("click", () => {
@@ -88,28 +90,158 @@ eraseButton.addEventListener("click", ()=> {
 });
 
 plusButton.addEventListener("click", () => {
-    if (inputArray.length > 0 && !operationBoolean){
-        computedOutput.textContent = liveInput.textContent + '+'; 
-        firtstNum = liveInput.textContent;
-        liveInput.textContent = '0';
-        inputArray.length = 0;
-        operationBoolean = true;
-    }
+
+        if ((inputArray.length > 0 && !operationBoolean)){
+            computedOutput.textContent = liveInput.textContent + '+'; 
+            firtstNum = liveInput.textContent;
+            liveInput.textContent = '0';
+            inputArray.length = 0;
+            operationBoolean = true;
+        }
+        else if(operationBoolean && inputArray.length > 0 ){
+            calc();
+            operationBoolean = true;
+            firtstNum = computedOutput.textContent;
+            computedOutput.textContent = computedOutput.textContent + "+"; 
+        }
+        else if(!(computedOutput === '')){
+            firtstNum = computedOutput.textContent
+            if(!computedOutput.textContent.includes('+')){
+                computedOutput.textContent = computedOutput.textContent + '+';
+            }
+            operationBoolean = true;
+            inputArray.length = 0;
+        }
+    
+});
+
+minusButton.addEventListener("click", () => {
+
+        if ((inputArray.length > 0 && !operationBoolean)){
+            computedOutput.textContent = liveInput.textContent + '-'; 
+            firtstNum = liveInput.textContent;
+            liveInput.textContent = '0';
+            inputArray.length = 0;
+            operationBoolean = true;
+        }
+        else if(operationBoolean && inputArray.length > 0 ){
+            calc();
+            operationBoolean = true;
+            firtstNum = computedOutput.textContent;
+            computedOutput.textContent = computedOutput.textContent + "-"; 
+        }
+        else if(!(computedOutput === '')){
+            firtstNum = computedOutput.textContent
+            if(!computedOutput.textContent.includes('-')){
+                computedOutput.textContent = computedOutput.textContent + '-';
+            }
+            operationBoolean = true;
+            inputArray.length = 0;
+        }
+    
+    });
+multButton.addEventListener("click", () => {
+
+        if ((inputArray.length > 0 && !operationBoolean)){
+            computedOutput.textContent = liveInput.textContent + '*'; 
+            firtstNum = liveInput.textContent;
+            liveInput.textContent = '0';
+            inputArray.length = 0;
+            operationBoolean = true;
+        }
+        else if(operationBoolean && inputArray.length > 0 ){
+            calc();
+            operationBoolean = true;
+            firtstNum = computedOutput.textContent;
+            computedOutput.textContent = computedOutput.textContent + "*"; 
+        }
+        else if(!(computedOutput === '')){
+            firtstNum = computedOutput.textContent
+            if(!computedOutput.textContent.includes('*')){
+                computedOutput.textContent = computedOutput.textContent + '*';
+            }
+            operationBoolean = true;
+            inputArray.length = 0;
+        }
+    
+});
+
+divButton.addEventListener("click", () => {
+   
+        if ((inputArray.length > 0 && !operationBoolean)){
+            computedOutput.textContent = liveInput.textContent + '/'; 
+            firtstNum = liveInput.textContent;
+            liveInput.textContent = '0';
+            inputArray.length = 0;
+            operationBoolean = true;
+        }
+        else if(operationBoolean && inputArray.length > 0 ){
+            calc();
+            operationBoolean = true;
+            firtstNum = computedOutput.textContent;
+            computedOutput.textContent = computedOutput.textContent + "-"; 
+        }
+        else if(!(computedOutput === '')){
+            firtstNum = computedOutput.textContent
+            if(!computedOutput.textContent.includes('/')){
+                computedOutput.textContent = computedOutput.textContent + '/';
+            }
+            operationBoolean = true;
+            inputArray.length = 0;
+        }
+    
 });
 
 enterButton.addEventListener("click", ()=>{
+    calc();
+});
+
+function clear(){
+    inputArray.length = 0;
+    computedOutput.textContent ='';
+    liveInput.textContent = '0';
+    operationBoolean = false;
+}
+
+
+function addition(numA, numB){
+    return numA + numB;
+}
+
+function subtraction(numA, numB){
+    return numA - numB;
+}
+
+function  multiplication(numA, numB){
+    return numA * numB;
+}
+
+function  division(numA, numB){
+    if(numB === 0){
+        alert("can not divide by 0")
+    }
+
+    else{
+        return numA / numB;
+    }
+}
+
+function calc(){
     if(computedOutput.textContent.includes('+')){
-        computedOutput.textContent = addition(parseInt(firtstNum), parseInt(liveInput.textContent))};
-    
+        computedOutput.textContent = addition(parseFloat(firtstNum), parseFloat(liveInput.textContent))
+    }
+    else if(computedOutput.textContent.includes('-')){
+        computedOutput.textContent = subtraction(parseFloat(firtstNum), parseFloat(liveInput.textContent))
+    }
+    else if(computedOutput.textContent.includes('*')){
+        computedOutput.textContent = multiplication(parseFloat(firtstNum), parseFloat(liveInput.textContent))
+    }
+    else if(computedOutput.textContent.includes('/')){
+        computedOutput.textContent = division(parseFloat(firtstNum), parseFloat(liveInput.textContent))
+    }
     if(operationBoolean){
         inputArray.length = 0;
         liveInput.textContent = '0';
     }
     operationBoolean = false;
-});
-
-
-
-function addition(numA, numB){
-    return numA + numB;
 }
